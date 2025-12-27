@@ -164,6 +164,23 @@ input:focus{
   line-height:1.5;
 }
 
+/* 무수 황산 결과 판정 표시 */
+.valueRow{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.judge{
+  font-weight:900;
+  font-size:14px;
+}
+
+.judge.ok{ color:#2563eb; }       /* 적정: 파랑 */
+.judge.retest{ color:#dc2626; }   /* 재시험: 빨강 */
+
+
 /* PC: hide ± */
 @media (min-width: 900px){
   .signBtn{ display:none; }
