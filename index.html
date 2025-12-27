@@ -69,13 +69,86 @@
     </section>
   </section>
 
-  <!-- ===================== -->
-  <!-- Tab: 비표면적 계산기 -->
-  <!-- ===================== -->
-  <section class="tabPanel" id="tab-ssa" role="tabpanel">
-    <!-- 기존 비표면적 영역 그대로 -->
-    <!-- (변경 없음) -->
+<!-- ===================== -->
+<!-- Tab: 비표면적 계산기 -->
+<!-- ===================== -->
+<section class="tabPanel" id="tab-ssa" role="tabpanel" aria-hidden="true">
+  <section class="inputs">
+
+    <div class="field">
+      <label for="S0">S₀</label>
+      <div class="inputWrap">
+        <input id="S0" value="1" inputmode="decimal" autocomplete="off">
+        <button type="button" class="signBtn" data-target="S0">±</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="rho0">ρ₀</label>
+      <div class="inputWrap">
+        <input id="rho0" value="1" inputmode="decimal" autocomplete="off">
+        <button type="button" class="signBtn" data-target="rho0">±</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="rho">ρ</label>
+      <div class="inputWrap">
+        <input id="rho" value="1" inputmode="decimal" autocomplete="off">
+        <button type="button" class="signBtn" data-target="rho">±</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="e0">e₀</label>
+      <div class="inputWrap">
+        <input id="e0" value="0.5" inputmode="decimal" autocomplete="off">
+        <button type="button" class="signBtn" data-target="e0">±</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="e">e</label>
+      <div class="inputWrap">
+        <input id="e" value="0.5" inputmode="decimal" autocomplete="off">
+        <button type="button" class="signBtn" data-target="e">±</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="t">t</label>
+      <div class="inputWrap">
+        <input id="t" value="1" inputmode="decimal" autocomplete="off">
+        <button type="button" class="signBtn" data-target="t">±</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="t0">t₀</label>
+      <div class="inputWrap">
+        <input id="t0" value="1" inputmode="decimal" autocomplete="off">
+        <button type="button" class="signBtn" data-target="t0">±</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="main" id="calcSsaBtn" type="button">계산</button>
+      <button class="sub" id="resetSsaBtn" type="button">초기화</button>
+    </div>
+
+    <div id="errSsa" class="err" role="alert" aria-live="polite"></div>
   </section>
+
+  <section class="result">
+    <div class="resultTitle">결과</div>
+    <div id="outSsa" class="value">—</div>
+    <div class="hint">
+      S = S₀ × (ρ₀ / ρ) × T × (1 − e₀) / √(e₀³) × √(e³) / (1 − e)<br>
+      T = √(t / t₀)
+    </div>
+  </section>
+</section>
+
 
   <!-- ===================== -->
   <!-- Tab: 무수 황산 계산기 -->
@@ -159,3 +232,4 @@
 <script src="app.js" defer></script>
 </body>
 </html>
+
