@@ -120,35 +120,38 @@ input:focus{
   margin-top:14px;
   background:var(--chip);
   color:var(--chipText);
-  padding:14px;
+  padding:16px;
   border-radius:14px;
+
+  display:flex;
+  flex-direction:column;
+  gap: 12px;   /* ✅ 핵심: 결과 내부 여백 */
 }
 
 .resultTitle{
   font-weight:800;
-  margin-bottom:6px;
+  margin-bottom:4px;
 }
 
 .value{
   font-size:28px;
   font-weight:900;
   letter-spacing:.2px;
-  word-break:break-all;
+  margin: 6px 0;   /* ✅ 숫자 위아래 여백 */
+    border-bottom: 1px solid rgba(255,255,255,.15);
+  padding-bottom: 8px;
 }
 
 .hint{
-  margin-top:8px;
   font-size:12px;
   opacity:.85;
-  line-height:1.35;
+  line-height:1.5;
+  margin-top: 6px;   /* ✅ 숫자와 간격 */
 }
 
-/* ✅ PC: 좌측 입력 / 우측 결과 */
-@media (min-width: 980px){
-  .card{
-    max-width: 980px;
-    padding:20px;
-  }
+/* ✅ PC: 좌측 입력 / 우측 결과 + 입력 4칸 고정 + ± 숨김 */
+@media (min-width: 900px){
+  .card{ max-width: 980px; padding:20px; }
 
   .layout{
     display:grid;
@@ -157,19 +160,25 @@ input:focus{
     align-items:start;
   }
 
-  /* ✅ PC에서는 ± 버튼 제거 */
-  .signBtn{
-    display:none;
+  /* ✅ 입력은 PC에서 무조건 4칸(한 줄) */
+  .grid{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  /* ✅ 입력칸을 더 슬림하게 */
+  /* ✅ PC에서는 ± 버튼 제거 */
+  .signBtn{
+    display:none !important;
+  }
+
+  /* ✅ 버튼 숨겼을 때 여백도 제거 */
+  .inputWrap{
+    gap:0;
+  }
+
+  /* ✅ 입력칸을 조금 슬림하게 */
   input{
     padding:10px 10px;
     font-size:15px;
-  }
-
-  .grid{
-    grid-template-columns: repeat(4, minmax(120px, 1fr));
   }
 
   .result{
@@ -178,7 +187,5 @@ input:focus{
     top: 16px;
   }
 
-  .value{
-    font-size:34px;
-  }
+  .value{ font-size:34px; }
 }
