@@ -114,10 +114,11 @@ input:focus{ border-color:#3b82f6; box-shadow:0 0 0 4px var(--focus); }
 .value{ font-size:30px; font-weight:900; margin:6px 0; letter-spacing:.2px; word-break:break-all; }
 .hint{ font-size:12px; opacity:.85; line-height:1.5; }
 
-/* 시험결과 1·2·3 전용: 라벨을 입력 위로 */
-.field-vertical{
+/* 시험결과: 라벨을 입력 위 + 왼쪽 정렬 */
+.field-test-vertical{
+  display:flex;
   flex-direction:column;
-  align-items:stretch;
+  align-items:flex-start; /* ✅ 왼쪽 정렬 */
   gap:6px;
 }
 
@@ -126,14 +127,11 @@ input:focus{ border-color:#3b82f6; box-shadow:0 0 0 4px var(--focus); }
   font-size:13px;
   font-weight:600;
   color:#374151;
-  text-align:left;
-  padding-left:2px;
+  text-align:left;       /* ✅ 텍스트 왼쪽 정렬 */
+  width:auto;            /* 기존 고정폭 무효화 */
+  margin:0;
 }
 
-/* field-vertical 안에서는 기존 좌측 라벨 폭 무효화 */
-.field-vertical label{
-  width:auto;
-}
 
 /* PC: hide ± */
 @media (min-width: 900px){
