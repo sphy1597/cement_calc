@@ -1,64 +1,261 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>수식 계산기</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>수식 계산기</title>
+
+<style>
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --border:#e5e7eb;
+  --text:#0f172a;
+  --muted:#475569;
+  --focus:rgba(59,130,246,.25);
+  --chip:#0b1220;
+  --chipText:#eaf1ff;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:system-ui,"Noto Sans KR",sans-serif;
+}
+.wrap{
+  min-height:100vh;
+  padding:16px;
+  display:flex;
+  justify-content:center;
+}
+.card{
+  width:100%;
+  max-width:900px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+h1{margin:0 0 6px;font-size:18px;}
+.sub{font-size:12px;color:var(--muted);}
+
+.grid{
+  display:grid;
+  gap:12px;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  margin-top:14px;
+}
+
+.field label{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+  display:block;
+}
+
+.inputWrap{
+  display:flex;
+  gap:6px;
+}
+
+input{
+  flex:1;
+  padding:12px;
+  font-size:16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  outline:none;
+}
+input:focus{
+  border-color:#3b82f6;
+  box-shadow:0 0 0 4px var(--focus);
+}
+
+.signBtn{
+  width:44px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+.signBtn:active{transform:translateY(1px);}
+
+.actions{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+button.main{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  background:#111;
+  color:#fff;
+  border:1px solid var(--border);
+  font-weight:600;
+}
+button.sub{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  background:#fff;
+  color:#111;
+  border:1px solid var(--border);
+}
+
+.result{
+  margin-top:14px;
+  background:var(--chip);
+  color:var(--chipText);
+  padding:14px;
+  border-radius:14px;
+}
+.value{
+  font-size:28px;
+  font-weight:800;
+}
+
+.err{
+  margin-top:8px;
+  color:#b00020;
+  font-size:12px;
+}
+
+.formula{
+  margin-top:12px;
+  font-size:12px;
+  background:#f3f4f6;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px;
+}
+code{font-family:monospace;}
+</style>
 </head>
+
 <body>
-
+<div class="wrap">
 <div class="card">
-  <h1>수식 계산기</h1>
 
-  <div class="grid">
-    <div class="field">
-      <label>w</label>
-      <div class="inputWrap">
-        <input id="w" value="0">
-        <button onclick="toggleSign('w')">±</button>
-      </div>
-    </div>
+<h1>수식 계산기</h1>
+<div class="sub">모바일 − 입력 대응 · ± 버튼 제공</div>
 
-    <div class="field">
-      <label>C</label>
-      <div class="inputWrap">
-        <input id="C" value="1">
-        <button onclick="toggleSign('C')">±</button>
-      </div>
-    </div>
+<div class="grid">
 
-    <div class="field">
-      <label>S</label>
-      <div class="inputWrap">
-        <input id="S" value="1">
-        <button onclick="toggleSign('S')">±</button>
-      </div>
-    </div>
-
-    <div class="field">
-      <label>P</label>
-      <div class="inputWrap">
-        <input id="P" value="0">
-        <button onclick="toggleSign('P')">±</button>
-      </div>
+  <!-- w -->
+  <div class="field">
+    <label>w</label>
+    <div class="inputWrap">
+      <input id="w" value="0" inputmode="decimal">
+      <button class="signBtn" onclick="toggleSign('w')">±</button>
     </div>
   </div>
 
-  <div class="actions">
-    <button class="main" onclick="compute()">계산</button>
-    <button class="sub" onclick="resetAll()">초기화</button>
+  <!-- C -->
+  <div class="field">
+    <label>C</label>
+    <div class="inputWrap">
+      <input id="C" value="1" inputmode="decimal">
+      <button class="signBtn" onclick="toggleSign('C')">±</button>
+    </div>
   </div>
 
-  <div id="err" class="err"></div>
+  <!-- S -->
+  <div class="field">
+    <label>S</label>
+    <div class="inputWrap">
+      <input id="S" value="1" inputmode="decimal">
+      <button class="signBtn" onclick="toggleSign('S')">±</button>
+    </div>
+  </div>
 
-  <div class="result">
-    <div>결과</div>
-    <div id="out" class="value">—</div>
+  <!-- P -->
+  <div class="field">
+    <label>P</label>
+    <div class="inputWrap">
+      <input id="P" value="0" inputmode="decimal">
+      <button class="signBtn" onclick="toggleSign('P')">±</button>
+    </div>
   </div>
 
 </div>
 
-<script src="app.js"></script>
+<div class="actions">
+  <button class="main" onclick="compute()">계산</button>
+  <button class="sub" onclick="resetAll()">초기화</button>
+</div>
+
+<div id="err" class="err"></div>
+
+<div class="result">
+  <div>결과</div>
+  <div id="out" class="value">—</div>
+</div>
+
+<div class="formula">
+<code>
+result = 100 × ( 1 − (w/400) × ( (337.5/C + 1350/S + 337.5×P×0.01) /
+(337.5 + 1350 + 337.5×P×0.01) ) )
+</code>
+</div>
+
+</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function parseNum(v){
+  if(v==="") return NaN;
+  return Number(v.replace(/,/g,""));
+}
+
+function toggleSign(id){
+  const el = $(id);
+  const v = parseNum(el.value) || 0;
+  el.value = (-v).toString();
+  compute();
+}
+
+function compute(){
+  const w = parseNum($("w").value);
+  const C = parseNum($("C").value);
+  const S = parseNum($("S").value);
+  const P = parseNum($("P").value);
+  $("err").textContent="";
+
+  if(![w,C,S,P].every(Number.isFinite)){
+    $("out").textContent="—";
+    $("err").textContent="숫자를 확인하세요.";
+    return;
+  }
+  if(C===0||S===0){
+    $("err").textContent="C 또는 S는 0이 될 수 없습니다.";
+    $("out").textContent="—";
+    return;
+  }
+
+  const pTerm = 337.5 * P * 0.01;
+  const num = 337.5/C + 1350/S + pTerm;
+  const den = 337.5 + 1350 + pTerm;
+
+  const result = 100 * (1 - (w/400) * (num/den));
+  $("out").textContent = result.toFixed(6);
+}
+
+function resetAll(){
+  $("w").value=0;
+  $("C").value=1;
+  $("S").value=1;
+  $("P").value=0;
+  $("out").textContent="—";
+  $("err").textContent="";
+}
+</script>
+
 </body>
 </html>
