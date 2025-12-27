@@ -30,17 +30,10 @@ body{
   box-shadow:0 10px 30px rgba(0,0,0,.06);
 }
 
-h1{
-  margin:0 0 12px;
-  font-size:18px;
-}
+h1{ margin:0 0 12px; font-size:18px; }
 
 /* Tabs */
-.tabs{
-  display:flex;
-  gap:10px;
-  margin-bottom: 14px;
-}
+.tabs{ display:flex; gap:10px; margin-bottom:14px; }
 .tabBtn{
   flex:1;
   padding:10px 12px;
@@ -50,59 +43,37 @@ h1{
   cursor:pointer;
   font-weight:800;
 }
-.tabBtn.active{
-  background:#111;
-  color:#fff;
-  border-color:#111;
-}
+.tabBtn.active{ background:#111; color:#fff; border-color:#111; }
 
-/* ✅ 탭 패널은 기본 숨김 + active만 표시 */
 .tabPanel{ display:none; }
 .tabPanel.active{ display:block; }
 
-/* 입력은 무조건 세로 */
-.inputs{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
+/* Inputs vertical */
+.inputs{ display:flex; flex-direction:column; gap:14px; }
 
-/* 라벨을 입력칸 왼쪽에 크게 (모바일/PC 공통) */
-.field{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
+/* label left bigger */
+.field{ display:flex; align-items:center; gap:10px; }
 .field label{
-  width:36px;
+  width:56px;
   text-align:right;
-  font-size:17px;
+  font-size:16px;
   font-weight:900;
   color:#111;
   margin:0;
 }
 
-.inputWrap{
-  flex:1;
-  display:flex;
-  gap:8px;
-}
+.inputWrap{ flex:1; display:flex; gap:8px; }
 
 input{
   flex:1;
   padding:12px;
-  font-size:16px; /* iOS 자동 확대 방지 */
+  font-size:16px;
   border-radius:12px;
   border:1px solid var(--border);
   outline:none;
   background:#fff;
 }
-
-input:focus{
-  border-color:#3b82f6;
-  box-shadow:0 0 0 4px var(--focus);
-}
+input:focus{ border-color:#3b82f6; box-shadow:0 0 0 4px var(--focus); }
 
 .signBtn{
   width:44px;
@@ -114,12 +85,7 @@ input:focus{
   cursor:pointer;
 }
 
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:6px;
-}
-
+.actions{ display:flex; gap:10px; margin-top:6px; }
 .actions button{
   flex:1;
   padding:12px;
@@ -128,48 +94,27 @@ input:focus{
   font-weight:800;
   cursor:pointer;
 }
-
 .main{ background:#111; color:#fff; }
 .sub{ background:#fff; color:#111; }
 
-.err{
-  font-size:12px;
-  color:#b00020;
-  min-height:14px;
-}
+.err{ font-size:12px; color:#b00020; min-height:14px; }
 
-/* 결과는 항상 아래 */
+/* Result bottom */
 .result{
   margin-top:18px;
   background:var(--chip);
   color:var(--chipText);
   padding:16px;
   border-radius:14px;
-
   display:flex;
   flex-direction:column;
-  gap:12px; /* 결과 내부 여백 */
+  gap:12px;
 }
+.resultTitle{ font-weight:900; }
+.value{ font-size:30px; font-weight:900; margin:6px 0; letter-spacing:.2px; word-break:break-all; }
+.hint{ font-size:12px; opacity:.85; line-height:1.5; }
 
-.resultTitle{
-  font-weight:900;
-}
-
-.value{
-  font-size:30px;
-  font-weight:900;
-  margin:6px 0;
-  letter-spacing:.2px;
-  word-break:break-all;
-}
-
-.hint{
-  font-size:12px;
-  opacity:.85;
-  line-height:1.5;
-}
-
-/* PC에서는 ± 제거 */
+/* PC: hide ± */
 @media (min-width: 900px){
   .signBtn{ display:none; }
 }
