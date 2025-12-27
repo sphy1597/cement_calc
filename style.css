@@ -7,7 +7,6 @@
   --focus:rgba(59,130,246,.25);
   --chip:#0b1220;
   --chipText:#eaf1ff;
-  --radius:16px;
 }
 
 *{ box-sizing:border-box; }
@@ -15,49 +14,38 @@
 body{
   margin:0;
   background:var(--bg);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
-  color:var(--text);
-  padding:
-    calc(16px + env(safe-area-inset-top))
-    calc(16px + env(safe-area-inset-right))
-    calc(16px + env(safe-area-inset-bottom))
-    calc(16px + env(safe-area-inset-left));
+  font-family:system-ui,"Noto Sans KR",sans-serif;
   display:flex;
   justify-content:center;
+  padding:16px;
 }
 
 .card{
   width:100%;
-  max-width: 760px;
+  max-width:520px;
   background:var(--card);
-  border:1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius:16px;
   padding:16px;
   box-shadow:0 10px 30px rgba(0,0,0,.06);
 }
 
 h1{
-  margin:0 0 12px;
+  margin:0 0 16px;
   font-size:18px;
-  letter-spacing:-.2px;
 }
 
-/* ✅ 모바일 기본: 세로 흐름 */
-.layout{
-  display:block;
-}
-
-.grid{
-  display:grid;
-  gap:12px;
-  grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+/* 입력은 무조건 세로 */
+.inputs{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 
 .field label{
-  display:block;
   font-size:12px;
   color:var(--muted);
   margin-bottom:6px;
+  display:block;
 }
 
 .inputWrap{
@@ -68,16 +56,15 @@ h1{
 input{
   flex:1;
   padding:12px;
-  font-size:16px; /* iOS 자동 확대 방지 */
+  font-size:16px;
   border-radius:12px;
   border:1px solid var(--border);
   outline:none;
-  background:#fff;
 }
 
 input:focus{
-  border-color: rgba(59,130,246,.7);
-  box-shadow: 0 0 0 4px var(--focus);
+  border-color:#3b82f6;
+  box-shadow:0 0 0 4px var(--focus);
 }
 
 .signBtn{
@@ -86,15 +73,14 @@ input:focus{
   border:1px solid var(--border);
   background:#fff;
   font-size:16px;
-  font-weight:800;
+  font-weight:700;
   cursor:pointer;
 }
-.signBtn:active{ transform: translateY(1px); }
 
 .actions{
-  margin-top:12px;
   display:flex;
   gap:10px;
+  margin-top:6px;
 }
 
 .actions button{
@@ -103,21 +89,20 @@ input:focus{
   border-radius:12px;
   border:1px solid var(--border);
   font-weight:700;
-  cursor:pointer;
 }
 
 .main{ background:#111; color:#fff; }
-.sub{ background:#fff; color:#111; }
+.sub{ background:#fff; }
 
 .err{
-  margin-top:8px;
-  color:#b00020;
   font-size:12px;
-  min-height: 16px;
+  color:#b00020;
+  min-height:14px;
 }
 
+/* 결과는 항상 아래 */
 .result{
-  margin-top:14px;
+  margin-top:18px;
   background:var(--chip);
   color:var(--chipText);
   padding:16px;
@@ -125,67 +110,25 @@ input:focus{
 
   display:flex;
   flex-direction:column;
-  gap: 12px;   /* ✅ 핵심: 결과 내부 여백 */
+  gap:12px;
 }
 
 .resultTitle{
   font-weight:800;
-  margin-bottom:4px;
 }
 
 .value{
-  font-size:28px;
+  font-size:30px;
   font-weight:900;
-  letter-spacing:.2px;
-  margin: 6px 0;   /* ✅ 숫자 위아래 여백 */
-    border-bottom: 1px solid rgba(255,255,255,.15);
-  padding-bottom: 8px;
 }
 
 .hint{
   font-size:12px;
   opacity:.85;
   line-height:1.5;
-  margin-top: 6px;   /* ✅ 숫자와 간격 */
 }
 
-/* ✅ PC: 좌측 입력 / 우측 결과 + 입력 4칸 고정 + ± 숨김 */
+/* PC에서는 ± 제거 */
 @media (min-width: 900px){
-  .card{ max-width: 980px; padding:20px; }
-
-  .layout{
-    display:grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 18px;
-    align-items:start;
-  }
-
-  /* ✅ 입력은 PC에서 무조건 4칸(한 줄) */
-  .grid{
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  /* ✅ PC에서는 ± 버튼 제거 */
-  .signBtn{
-    display:none !important;
-  }
-
-  /* ✅ 버튼 숨겼을 때 여백도 제거 */
-  .inputWrap{
-    gap:0;
-  }
-
-  /* ✅ 입력칸을 조금 슬림하게 */
-  input{
-    padding:10px 10px;
-    font-size:15px;
-  }
-
-  .result{
-    margin-top:0;
-    position: sticky;
-    top: 16px;
-  }
-
-  .value{ font-size:34px; }
+  .signBtn{ display:none; }
 }
