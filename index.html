@@ -13,8 +13,9 @@
 
   <!-- Tabs -->
   <nav class="tabs" role="tablist" aria-label="계산기 탭">
-    <button class="tabBtn active" type="button" role="tab" aria-selected="true" data-tab="air">공기량 계산기</button>
-    <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="ssa">비표면적 계산기</button>
+    <button class="tabBtn active" type="button" role="tab" aria-selected="true" data-tab="air">공기량</button>
+    <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="ssa">비표면적</button>
+    <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="as">무수 황산</button>
   </nav>
 
   <!-- ===================== -->
@@ -151,8 +152,86 @@
     </section>
   </section>
 
+  <!-- ===================== -->
+  <!-- Tab: 무수 황산 계산기 -->
+  <!-- ===================== -->
+  <section class="tabPanel" id="tab-as" role="tabpanel" aria-hidden="true">
+    <section class="inputs">
+
+      <div class="field">
+        <label for="cs1">강도1</label>
+        <div class="inputWrap">
+          <input id="cs1" value="0" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="cs1">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cs2">강도2</label>
+        <div class="inputWrap">
+          <input id="cs2" value="0" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="cs2">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cs3">강도3</label>
+        <div class="inputWrap">
+          <input id="cs3" value="0" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="cs3">±</button>
+        </div>
+      </div>
+
+      <!-- a, b 자동 계산 표시 (읽기 전용) -->
+      <div class="field">
+        <label for="aVal">a</label>
+        <div class="inputWrap">
+          <input id="aVal" value="0" readonly>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="bVal">b</label>
+        <div class="inputWrap">
+          <input id="bVal" value="0" readonly>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="so3">SO₃</label>
+        <div class="inputWrap">
+          <input id="so3" value="0" inputmode="decimal" autocomplete="off" placeholder="황산칼슘 SO₃ 함량(%)">
+          <button type="button" class="signBtn" data-target="so3">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="dVal">d</label>
+        <div class="inputWrap">
+          <input id="dVal" value="0" inputmode="decimal" autocomplete="off" placeholder="시험 시멘트 무수 황산 함량(%)">
+          <button type="button" class="signBtn" data-target="dVal">±</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="main" id="calcAsBtn" type="button">계산</button>
+        <button class="sub" id="resetAsBtn" type="button">초기화</button>
+      </div>
+
+      <div id="errAs" class="err" role="alert" aria-live="polite"></div>
+    </section>
+
+    <section class="result">
+      <div class="resultTitle">결과</div>
+      <div id="outAs" class="value">—</div>
+      <div class="hint">
+        G = [a/(a−b)]×c + d + c/2, &nbsp; a=(강도2−강도1), b=(강도3−강도2), c=SO₃/100
+      </div>
+    </section>
+  </section>
+
 </main>
 
-<script src="app.js"></script>
+<script src="app.js" defer></script>
 </body>
 </html>
