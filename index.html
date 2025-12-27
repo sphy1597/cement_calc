@@ -1,404 +1,261 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>수식 계산기 (모바일 최적화)</title>
-  <style>
-    :root{
-      --bg:#f6f7fb;
-      --card:#ffffff;
-      --text:#0f172a;
-      --muted:#475569;
-      --border:#e5e7eb;
-      --focus: rgba(59,130,246,.25);
-      --chip:#0b1220;
-      --chipText:#eaf1ff;
-      --radius: 16px;
-      --gap: 12px;
-    }
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>수식 계산기</title>
 
-    /* Safe area + 모바일에서 가운데 정렬 */
-    .wrap{
-      min-height:100%;
-      padding:
-        calc(16px + env(safe-area-inset-top))
-        calc(16px + env(safe-area-inset-right))
-        calc(20px + env(safe-area-inset-bottom))
-        calc(16px + env(safe-area-inset-left));
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-    }
+<style>
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --border:#e5e7eb;
+  --text:#0f172a;
+  --muted:#475569;
+  --focus:rgba(59,130,246,.25);
+  --chip:#0b1220;
+  --chipText:#eaf1ff;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:system-ui,"Noto Sans KR",sans-serif;
+}
+.wrap{
+  min-height:100vh;
+  padding:16px;
+  display:flex;
+  justify-content:center;
+}
+.card{
+  width:100%;
+  max-width:900px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+h1{margin:0 0 6px;font-size:18px;}
+.sub{font-size:12px;color:var(--muted);}
 
-    .card{
-      width:min(920px, 100%);
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 10px 30px rgba(0,0,0,.06);
-      padding: 16px;
-    }
+.grid{
+  display:grid;
+  gap:12px;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  margin-top:14px;
+}
 
-    .header{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      margin-bottom: 10px;
-    }
-    h1{
-      font-size: clamp(16px, 3.8vw, 20px);
-      margin:0;
-      letter-spacing:-.2px;
-    }
-    .sub{
-      color:var(--muted);
-      font-size: 12px;
-      margin-top: 4px;
-      line-height:1.4;
-    }
+.field label{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+  display:block;
+}
 
-    /* 반응형 폼: 화면 크기에 따라 자동 컬럼 변화 */
-    .grid{
-      display:grid;
-      gap: var(--gap);
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      margin-top: 12px;
-    }
+.inputWrap{
+  display:flex;
+  gap:6px;
+}
 
-    .field label{
-      display:block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
+input{
+  flex:1;
+  padding:12px;
+  font-size:16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  outline:none;
+}
+input:focus{
+  border-color:#3b82f6;
+  box-shadow:0 0 0 4px var(--focus);
+}
 
-    /* 모바일 키보드/입력 최적화 */
-    input{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 12px;
-      border:1px solid var(--border);
-      font-size: 16px; /* iOS 자동 확대 방지 */
-      background:#fff;
-      color: var(--text);
-      outline:none;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    input:focus{
-      border-color: rgba(59,130,246,.7);
-      box-shadow: 0 0 0 4px var(--focus);
-    }
+.signBtn{
+  width:44px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+.signBtn:active{transform:translateY(1px);}
 
-    .actions{
-      margin-top: 12px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-    }
+.actions{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+button.main{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  background:#111;
+  color:#fff;
+  border:1px solid var(--border);
+  font-weight:600;
+}
+button.sub{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  background:#fff;
+  color:#111;
+  border:1px solid var(--border);
+}
 
-    .btns{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      width:100%;
-    }
+.result{
+  margin-top:14px;
+  background:var(--chip);
+  color:var(--chipText);
+  padding:14px;
+  border-radius:14px;
+}
+.value{
+  font-size:28px;
+  font-weight:800;
+}
 
-    button{
-      flex: 1 1 180px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border:1px solid var(--border);
-      cursor:pointer;
-      font-weight:600;
-      font-size: 14px;
-      background:#111;
-      color:#fff;
-      touch-action: manipulation;
-    }
-    button.secondary{
-      background:#fff;
-      color:#111;
-    }
-    button:active{ transform: translateY(1px); }
+.err{
+  margin-top:8px;
+  color:#b00020;
+  font-size:12px;
+}
 
-    .toggle{
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding: 10px 12px;
-      border:1px solid var(--border);
-      border-radius: 12px;
-      background:#fafafa;
-      color:var(--muted);
-      font-size: 13px;
-    }
-    .toggle input{ width:auto; margin:0; }
-
-    .err{
-      margin-top: 10px;
-      color:#b00020;
-      font-size: 12px;
-      min-height: 16px;
-    }
-
-    .result{
-      margin-top: 12px;
-      border-radius: 14px;
-      background: var(--chip);
-      color: var(--chipText);
-      padding: 14px;
-      display:grid;
-      gap: 8px;
-    }
-    .resultTop{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-    }
-    .value{
-      font-size: clamp(22px, 7vw, 34px);
-      font-weight:800;
-      letter-spacing:.2px;
-      word-break: break-all;
-    }
-    .hint{
-      font-size: 12px;
-      opacity:.85;
-      line-height:1.4;
-    }
-
-    .formula{
-      margin-top: 12px;
-      font-size: 12px;
-      color:#334155;
-      background:#f3f4f6;
-      border:1px solid var(--border);
-      padding: 10px 12px;
-      border-radius: 12px;
-      overflow:auto;
-    }
-    code{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-    }
-
-    .miniRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      margin-top: 10px;
-    }
-    .precision{
-      flex: 1 1 240px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding: 10px 12px;
-      border:1px solid var(--border);
-      border-radius: 12px;
-      background:#fafafa;
-      color:var(--muted);
-      font-size: 13px;
-    }
-    select{
-      margin-left:auto;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border:1px solid var(--border);
-      background:#fff;
-      font-size: 14px;
-    }
-
-    /* 아주 작은 화면에서는 패딩 살짝 축소 */
-    @media (max-width: 360px){
-      .card{ padding: 12px; }
-      input{ padding: 11px 10px; }
-    }
-  </style>
+.formula{
+  margin-top:12px;
+  font-size:12px;
+  background:#f3f4f6;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px;
+}
+code{font-family:monospace;}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="header">
-        <div>
-          <h1>수식 계산기</h1>
-          <div class="sub">
-            모바일/데스크톱 모두 자동 레이아웃 · 입력 시 자동 계산(옵션)
-          </div>
-        </div>
-      </div>
+<div class="wrap">
+<div class="card">
 
-      <div class="grid">
-        <div class="field">
-          <label for="w">w</label>
-          <input id="w" inputmode="decimal" type="text" value="0" autocomplete="off" />
-        </div>
-        <div class="field">
-          <label for="C">C</label>
-          <input id="C" inputmode="decimal" type="text" value="1" autocomplete="off" />
-        </div>
-        <div class="field">
-          <label for="S">S</label>
-          <input id="S" inputmode="decimal" type="text" value="1" autocomplete="off" />
-        </div>
-        <div class="field">
-          <label for="P">P</label>
-          <input id="P" inputmode="decimal" type="text" value="0" autocomplete="off" />
-        </div>
-      </div>
+<h1>수식 계산기</h1>
+<div class="sub">모바일 − 입력 대응 · ± 버튼 제공</div>
 
-      <div class="miniRow">
-        <div class="precision">
-          <span>소수점 자리</span>
-          <select id="digits">
-            <option value="2">2</option>
-            <option value="4">4</option>
-            <option value="6" selected>6</option>
-            <option value="8">8</option>
-          </select>
-        </div>
+<div class="grid">
 
-        <div class="toggle">
-          <span>입력 시 자동 계산</span>
-          <input id="live" type="checkbox" checked />
-        </div>
-      </div>
-
-      <div class="actions">
-        <div class="btns">
-          <button id="calcBtn">계산</button>
-          <button id="resetBtn" class="secondary">초기화</button>
-        </div>
-      </div>
-
-      <div id="err" class="err" role="alert" aria-live="polite"></div>
-
-      <div class="result" aria-live="polite">
-        <div class="resultTop">
-          <div style="font-weight:700;">결과</div>
-          <div style="font-size:12px; opacity:.85;">result</div>
-        </div>
-        <div class="value" id="out">—</div>
-        <div class="hint" id="detail">값을 입력하면 바로 계산됩니다.</div>
-      </div>
-
-      <div class="formula">
-        <div style="font-weight:700; margin-bottom:6px;">사용한 수식</div>
-        <code>
-          result = 100 × ( 1 − (w/400) × ( (337.5/C + 1350/S + 337.5×P×0.01) / (337.5 + 1350 + 337.5×P×0.01) ) )
-        </code>
-      </div>
+  <!-- w -->
+  <div class="field">
+    <label>w</label>
+    <div class="inputWrap">
+      <input id="w" value="0" inputmode="decimal">
+      <button class="signBtn" onclick="toggleSign('w')">±</button>
     </div>
   </div>
 
-  <script>
-    // 수식:
-    // result = 100 * (1 - (w/400) * ((337.5/C + 1350/S + 337.5*P*0.01) / (337.5 + 1350 + 337.5*P*0.01)))
+  <!-- C -->
+  <div class="field">
+    <label>C</label>
+    <div class="inputWrap">
+      <input id="C" value="1" inputmode="decimal">
+      <button class="signBtn" onclick="toggleSign('C')">±</button>
+    </div>
+  </div>
 
-    const $ = (id) => document.getElementById(id);
-    const ids = ["w","C","S","P"];
-    const inputs = ids.map($);
+  <!-- S -->
+  <div class="field">
+    <label>S</label>
+    <div class="inputWrap">
+      <input id="S" value="1" inputmode="decimal">
+      <button class="signBtn" onclick="toggleSign('S')">±</button>
+    </div>
+  </div>
 
-    // 콤마 입력 허용(예: 1,234.5)
-    function parseNum(str){
-      if (typeof str !== "string") return Number(str);
-      const cleaned = str.replace(/,/g, "").trim();
-      if (cleaned === "") return NaN;
-      return Number(cleaned);
-    }
+  <!-- P -->
+  <div class="field">
+    <label>P</label>
+    <div class="inputWrap">
+      <input id="P" value="0" inputmode="decimal">
+      <button class="signBtn" onclick="toggleSign('P')">±</button>
+    </div>
+  </div>
 
-    function fmt(num, digits){
-      if (!isFinite(num)) return String(num);
-      return num.toFixed(digits);
-    }
+</div>
 
-    function compute(){
-      const w = parseNum($("w").value);
-      const C = parseNum($("C").value);
-      const S = parseNum($("S").value);
-      const P = parseNum($("P").value);
-      const digits = Number($("digits").value);
+<div class="actions">
+  <button class="main" onclick="compute()">계산</button>
+  <button class="sub" onclick="resetAll()">초기화</button>
+</div>
 
-      const err = $("err");
-      err.textContent = "";
+<div id="err" class="err"></div>
 
-      if (![w,C,S,P].every((x)=>Number.isFinite(x))){
-        $("out").textContent = "—";
-        $("detail").textContent = "입력값이 숫자인지 확인하세요. (예: 12.3 또는 1,234.5)";
-        return;
-      }
-      if (C === 0){
-        err.textContent = "C는 0이 될 수 없습니다. (337.5/C)";
-        $("out").textContent = "—";
-        return;
-      }
-      if (S === 0){
-        err.textContent = "S는 0이 될 수 없습니다. (1350/S)";
-        $("out").textContent = "—";
-        return;
-      }
+<div class="result">
+  <div>결과</div>
+  <div id="out" class="value">—</div>
+</div>
 
-      const pTerm = 337.5 * P * 0.01; // 337.5×P×0.01
-      const numerator = (337.5 / C) + (1350 / S) + pTerm;
-      const denominator = 337.5 + 1350 + pTerm;
+<div class="formula">
+<code>
+result = 100 × ( 1 − (w/400) × ( (337.5/C + 1350/S + 337.5×P×0.01) /
+(337.5 + 1350 + 337.5×P×0.01) ) )
+</code>
+</div>
 
-      if (denominator === 0){
-        err.textContent = "분모(337.5 + 1350 + 337.5×P×0.01)가 0이어서 계산할 수 없습니다.";
-        $("out").textContent = "—";
-        return;
-      }
+</div>
+</div>
 
-      const fraction = numerator / denominator;
-      const result = 100 * (1 - (w / 400) * fraction);
+<script>
+const $ = id => document.getElementById(id);
 
-      $("out").textContent = fmt(result, digits);
-      $("detail").textContent =
-        `중간값: 분자=${fmt(numerator, digits)} · 분모=${fmt(denominator, digits)} · 비율=${fmt(fraction, digits)}`;
-    }
+function parseNum(v){
+  if(v==="") return NaN;
+  return Number(v.replace(/,/g,""));
+}
 
-    // 버튼
-    $("calcBtn").addEventListener("click", compute);
+function toggleSign(id){
+  const el = $(id);
+  const v = parseNum(el.value) || 0;
+  el.value = (-v).toString();
+  compute();
+}
 
-    $("resetBtn").addEventListener("click", () => {
-      $("w").value = "0";
-      $("C").value = "1";
-      $("S").value = "1";
-      $("P").value = "0";
-      $("digits").value = "6";
-      $("err").textContent = "";
-      $("out").textContent = "—";
-      $("detail").textContent = "값을 입력하면 바로 계산됩니다.";
-    });
+function compute(){
+  const w = parseNum($("w").value);
+  const C = parseNum($("C").value);
+  const S = parseNum($("S").value);
+  const P = parseNum($("P").value);
+  $("err").textContent="";
 
-    // 자동 계산 토글
-    function maybeLive(){
-      if ($("live").checked) compute();
-    }
-    inputs.forEach(inp => inp.addEventListener("input", maybeLive));
-    $("digits").addEventListener("change", maybeLive);
+  if(![w,C,S,P].every(Number.isFinite)){
+    $("out").textContent="—";
+    $("err").textContent="숫자를 확인하세요.";
+    return;
+  }
+  if(C===0||S===0){
+    $("err").textContent="C 또는 S는 0이 될 수 없습니다.";
+    $("out").textContent="—";
+    return;
+  }
 
-    // 초기 계산
-    if ($("live").checked) compute();
-  </script>
+  const pTerm = 337.5 * P * 0.01;
+  const num = 337.5/C + 1350/S + pTerm;
+  const den = 337.5 + 1350 + pTerm;
+
+  const result = 100 * (1 - (w/400) * (num/den));
+  $("out").textContent = result.toFixed(6);
+}
+
+function resetAll(){
+  $("w").value=0;
+  $("C").value=1;
+  $("S").value=1;
+  $("P").value=0;
+  $("out").textContent="—";
+  $("err").textContent="";
+}
+</script>
+
 </body>
 </html>
