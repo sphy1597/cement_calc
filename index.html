@@ -90,13 +90,13 @@
             <h2>비표면적(S) 계산</h2>
             <div class="formula-box">S = S₀·(ρ₀/ρ)·√(t/t₀)·[(1-e₀)/√e₀³]·[√e³/(1-e)]</div>
             <div class="form-grid">
-                <div class="input-group full-row"><label>S₀ (표준 비표면적)</label><input type="number" id="s0" step="any" inputmode="text"></div>
-                <div class="input-group"><label>ρ₀ (표준 비중)</label><input type="number" id="rho0" value="3.15" step="any" inputmode="text"></div>
-                <div class="input-group"><label>ρ (시험 비중)</label><input type="number" id="rho" step="any" inputmode="text"></div>
-                <div class="input-group"><label>t₀ (표준 시간)</label><input type="number" id="t0" step="any" inputmode="text"></div>
-                <div class="input-group"><label>t (시험 시간)</label><input type="number" id="t" step="any" inputmode="text"></div>
-                <div class="input-group"><label>e₀ (표준 공극률)</label><input type="number" id="e0" value="0.500" step="any" inputmode="text"></div>
-                <div class="input-group"><label>e (시험 공극률)</label><input type="number" id="e" value="0.500" step="any" inputmode="text"></div>
+                <div class="input-group full-row"><label>S₀ (표준 비표면적)</label><input type="number" id="s0" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>ρ₀ (표준 비중)</label><input type="number" id="rho0" value="3.15" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>ρ (시험 비중)</label><input type="number" id="rho" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>t₀ (표준 시간)</label><input type="number" id="t0" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>t (시험 시간)</label><input type="number" id="t" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>e₀ (표준 공극률)</label><input type="number" id="e0" value="0.500" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>e (시험 공극률)</label><input type="number" id="e" value="0.500" step="any" inputmode="decimal"></div>
             </div>
             <button class="calc-btn" onclick="calcBlaine()">계산하기</button>
             <div id="res1" class="result-card"><span class="result-value" id="val1">0</span> <small>cm²/g</small></div>
@@ -106,10 +106,10 @@
             <h2>공기량(A) 계산</h2>
             <div class="formula-box">A = 100 × [1 - (w/400) × 분수식]</div>
             <div class="form-grid">
-                <div class="input-group full-row"><label>단위 수량 (w)</label><input type="number" id="a_w" step="any" inputmode="text"></div>
-                <div class="input-group"><label>시멘트 밀도 (C)</label><input type="number" id="a_c" step="any" inputmode="text"></div>
-                <div class="input-group"><label>골재 밀도 (S)</label><input type="number" id="a_s" step="any" inputmode="text"></div>
-                <div class="input-group full-row"><label>혼화제 혼입률 (P) [%]</label><input type="number" id="a_p" step="any" inputmode="text"></div>
+                <div class="input-group full-row"><label>단위 수량 (w)</label><input type="number" id="a_w" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>시멘트 밀도 (C)</label><input type="number" id="a_c" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>골재 밀도 (S)</label><input type="number" id="a_s" step="any" inputmode="decimal"></div>
+                <div class="input-group full-row"><label>혼화제 혼입률 (P) [%]</label><input type="number" id="a_p" step="any" inputmode="decimal"></div>
             </div>
             <button class="calc-btn" onclick="calcAir()">계산하기</button>
             <div id="res2" class="result-card"><span class="result-value" id="val2">0</span> <small>%</small></div>
@@ -119,10 +119,10 @@
             <h2>무수 황산 최적값(G)</h2>
             <div class="formula-box">G = [a/(a-b)]c + d + c/2</div>
             <div class="form-grid">
-                <div class="input-group"><label>a (조합2-1 강도차)</label><input type="number" id="g_a" step="any" inputmode="text"></div>
-                <div class="input-group"><label>b (조합3-2 강도차)</label><input type="number" id="g_b" step="any" inputmode="text"></div>
-                <div class="input-group"><label>c (SO₃/100)</label><input type="number" id="g_c" step="any" inputmode="text"></div>
-                <div class="input-group"><label>d (시멘트 무수황산)</label><input type="number" id="g_d" step="any" inputmode="text"></div>
+                <div class="input-group"><label>a (조합2-1 강도차)</label><input type="number" id="g_a" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>b (조합3-2 강도차)</label><input type="number" id="g_b" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>c (SO₃/100)</label><input type="number" id="g_c" step="any" inputmode="decimal"></div>
+                <div class="input-group"><label>d (시멘트 무수황산)</label><input type="number" id="g_d" step="any" inputmode="decimal"></div>
             </div>
             <button class="calc-btn" onclick="calcSulfate()">계산하기</button>
             <div id="res3" class="result-card"><span class="result-value" id="val3">0</span> <small>%</small></div>
@@ -179,3 +179,4 @@
 
 </body>
 </html>
+
