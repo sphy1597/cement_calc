@@ -24,7 +24,7 @@
     <section class="inputs">
 
       <div class="field">
-        <label for="w">w</label>
+        <label for="w">w 400미리 무게</label>
         <div class="inputWrap">
           <input id="w" value="0" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="w">±</button>
@@ -32,7 +32,7 @@
       </div>
 
       <div class="field">
-        <label for="C">C</label>
+        <label for="C">C 밀도</label>
         <div class="inputWrap">
           <input id="C" value="1" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="C">±</button>
@@ -40,7 +40,7 @@
       </div>
 
       <div class="field">
-        <label for="S_air">S</label>
+        <label for="S_air">S 기공률</label>
         <div class="inputWrap">
           <input id="S_air" value="1" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="S_air">±</button>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="field">
-        <label for="P">P</label>
+        <label for="P">P 수량% </label>
         <div class="inputWrap">
           <input id="P" value="0" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="P">±</button>
@@ -79,7 +79,7 @@
     <section class="inputs">
 
       <div class="field">
-        <label for="S0">S₀</label>
+        <label for="S0">S₀ 표준 시료 비표면적</label>
         <div class="inputWrap">
           <input id="S0" value="1" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="S0">±</button>
@@ -87,15 +87,7 @@
       </div>
 
       <div class="field">
-        <label for="rho0">ρ₀</label>
-        <div class="inputWrap">
-          <input id="rho0" value="1" inputmode="decimal" autocomplete="off">
-          <button type="button" class="signBtn" data-target="rho0">±</button>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="rho">ρ</label>
+        <label for="rho">ρ 실험 밀도</label>
         <div class="inputWrap">
           <input id="rho" value="1" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="rho">±</button>
@@ -103,15 +95,7 @@
       </div>
 
       <div class="field">
-        <label for="e0">e₀</label>
-        <div class="inputWrap">
-          <input id="e0" value="0.5" inputmode="decimal" autocomplete="off">
-          <button type="button" class="signBtn" data-target="e0">±</button>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="e">e</label>
+        <label for="e">e 실험 기공률</label>
         <div class="inputWrap">
           <input id="e" value="0.5" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="e">±</button>
@@ -119,7 +103,7 @@
       </div>
 
       <div class="field">
-        <label for="t">t</label>
+        <label for="t">t 실험 시간</label>
         <div class="inputWrap">
           <input id="t" value="1" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="t">±</button>
@@ -127,10 +111,26 @@
       </div>
 
       <div class="field">
-        <label for="t0">t₀</label>
+        <label for="t0">t₀ 표준 시간</label>
         <div class="inputWrap">
           <input id="t0" value="1" inputmode="decimal" autocomplete="off">
           <button type="button" class="signBtn" data-target="t0">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="e0">e₀ 표준 기공률</label>
+        <div class="inputWrap">
+          <input id="e0" value="0.5" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="e0">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="rho0">ρ₀ 표준 밀도</label>
+        <div class="inputWrap">
+          <input id="rho0" value="1" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="rho0">±</button>
         </div>
       </div>
 
@@ -183,21 +183,21 @@
       </div>
 
       <div class="field">
-        <label for="aVal">a</label>
+        <label for="aVal">시험결과2-시험결과1</label>
         <div class="inputWrap">
           <input id="aVal" value="0" readonly>
         </div>
       </div>
 
       <div class="field">
-        <label for="bVal">b</label>
+        <label for="bVal">시험결과3-시험결과2</label>
         <div class="inputWrap">
           <input id="bVal" value="0" readonly>
         </div>
       </div>
 
       <div class="field">
-        <label for="so3">SO₃(%)</label>
+        <label for="so3">석고SO₃함량</label>
         <div class="inputWrap">
           <input id="so3" value="0" inputmode="decimal" autocomplete="off" placeholder="황산칼슘 SO₃ 함량">
           <button type="button" class="signBtn" data-target="so3">±</button>
@@ -205,7 +205,7 @@
       </div>
 
       <div class="field">
-        <label for="dVal">d(%)</label>
+        <label for="dVal">시멘트SO₃함량</label>
         <div class="inputWrap">
           <input id="dVal" value="0" inputmode="decimal" autocomplete="off" placeholder="시험 시멘트 무수 황산 함량">
           <button type="button" class="signBtn" data-target="dVal">±</button>
@@ -234,3 +234,4 @@
 <script src="app.js" defer></script>
 </body>
 </html>
+
