@@ -145,7 +145,10 @@ input:focus{
 
 /* ✅ PC: 좌측 입력 / 우측 결과 */
 @media (min-width: 980px){
-  .card{ max-width: 980px; padding:20px; }
+  .card{
+    max-width: 980px;
+    padding:20px;
+  }
 
   .layout{
     display:grid;
@@ -154,11 +157,28 @@ input:focus{
     align-items:start;
   }
 
+  /* ✅ PC에서는 ± 버튼 제거 */
+  .signBtn{
+    display:none;
+  }
+
+  /* ✅ 입력칸을 더 슬림하게 */
+  input{
+    padding:10px 10px;
+    font-size:15px;
+  }
+
+  .grid{
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+  }
+
   .result{
     margin-top:0;
     position: sticky;
     top: 16px;
   }
 
-  .value{ font-size:34px; }
+  .value{
+    font-size:34px;
+  }
 }
