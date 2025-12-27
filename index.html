@@ -3,66 +3,154 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>수식 계산기</title>
+  <title>계산기</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <main class="card">
-  <h1>수식 계산기</h1>
+  <h1>계산기</h1>
 
-  <!-- 입력 영역 -->
-  <section class="inputs">
+  <!-- Tabs -->
+  <nav class="tabs" role="tablist" aria-label="계산기 탭">
+    <button class="tabBtn active" type="button" role="tab" aria-selected="true" data-tab="air">공기량 계산기</button>
+    <button class="tabBtn" type="button" role="tab" aria-selected="false" data-tab="ssa">비표면적 계산기</button>
+  </nav>
 
-    <div class="field">
-      <label for="w">w</label>
-      <div class="inputWrap">
-        <input id="w" value="0" inputmode="decimal">
-        <button type="button" class="signBtn" data-target="w">±</button>
+  <!-- ===================== -->
+  <!-- Tab: 공기량 계산기 -->
+  <!-- ===================== -->
+  <section class="tabPanel active" id="tab-air" role="tabpanel">
+    <section class="inputs">
+
+      <div class="field">
+        <label for="w">w</label>
+        <div class="inputWrap">
+          <input id="w" value="0" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="w">±</button>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label for="C">C</label>
-      <div class="inputWrap">
-        <input id="C" value="1" inputmode="decimal">
-        <button type="button" class="signBtn" data-target="C">±</button>
+      <div class="field">
+        <label for="C">C</label>
+        <div class="inputWrap">
+          <input id="C" value="1" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="C">±</button>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label for="S">S</label>
-      <div class="inputWrap">
-        <input id="S" value="1" inputmode="decimal">
-        <button type="button" class="signBtn" data-target="S">±</button>
+      <div class="field">
+        <label for="S_air">S</label>
+        <div class="inputWrap">
+          <input id="S_air" value="1" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="S_air">±</button>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label for="P">P</label>
-      <div class="inputWrap">
-        <input id="P" value="0" inputmode="decimal">
-        <button type="button" class="signBtn" data-target="P">±</button>
+      <div class="field">
+        <label for="P">P</label>
+        <div class="inputWrap">
+          <input id="P" value="0" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="P">±</button>
+        </div>
       </div>
-    </div>
 
-    <div class="actions">
-      <button class="main" id="calcBtn">계산</button>
-      <button class="sub" id="resetBtn">초기화</button>
-    </div>
+      <div class="actions">
+        <button class="main" id="calcAirBtn" type="button">계산</button>
+        <button class="sub" id="resetAirBtn" type="button">초기화</button>
+      </div>
 
-    <div id="err" class="err"></div>
+      <div id="errAir" class="err" role="alert" aria-live="polite"></div>
+    </section>
+
+    <section class="result">
+      <div class="resultTitle">결과</div>
+      <div id="outAir" class="value">—</div>
+      <div class="hint">
+        result = 100 × ( 1 − (w/400) × ( (337.5/C + 1350/S + 337.5×P×0.01) / (337.5 + 1350 + 337.5×P×0.01) ) )
+      </div>
+    </section>
   </section>
 
-  <!-- 결과 영역 (항상 아래) -->
-  <section class="result">
-    <div class="resultTitle">결과</div>
-    <div id="out" class="value">—</div>
-    <div class="hint">
-      result = 100 × ( 1 − (w/400) × ( (337.5/C + 1350/S + 337.5×P×0.01)
-      / (337.5 + 1350 + 337.5×P×0.01) ) )
-    </div>
+  <!-- ===================== -->
+  <!-- Tab: 비표면적 계산기 -->
+  <!-- ===================== -->
+  <section class="tabPanel" id="tab-ssa" role="tabpanel" aria-hidden="true">
+    <section class="inputs">
+
+      <div class="field">
+        <label for="S0">S₀</label>
+        <div class="inputWrap">
+          <input id="S0" value="1" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="S0">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="rho0">ρ₀</label>
+        <div class="inputWrap">
+          <input id="rho0" value="1" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="rho0">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="rho">ρ</label>
+        <div class="inputWrap">
+          <input id="rho" value="1" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="rho">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="e0">e₀</label>
+        <div class="inputWrap">
+          <input id="e0" value="0.5" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="e0">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="e">e</label>
+        <div class="inputWrap">
+          <input id="e" value="0.5" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="e">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="t">t</label>
+        <div class="inputWrap">
+          <input id="t" value="1" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="t">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="t0">t₀</label>
+        <div class="inputWrap">
+          <input id="t0" value="1" inputmode="decimal" autocomplete="off">
+          <button type="button" class="signBtn" data-target="t0">±</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="main" id="calcSsaBtn" type="button">계산</button>
+        <button class="sub" id="resetSsaBtn" type="button">초기화</button>
+      </div>
+
+      <div id="errSsa" class="err" role="alert" aria-live="polite"></div>
+    </section>
+
+    <section class="result">
+      <div class="resultTitle">결과</div>
+      <div id="outSsa" class="value">—</div>
+      <div class="hint">
+        S = S₀ × (ρ₀/ρ) × T × (1−e₀)/√(e₀³) × √(e³)/(1−e), &nbsp; T = √(t/t₀)
+      </div>
+    </section>
   </section>
+
 </main>
 
 <script src="app.js"></script>
