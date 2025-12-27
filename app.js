@@ -217,4 +217,12 @@ function wireEvents() {
   $("resetAsBtn").addEventListener("click", resetAs);
 
   // 강도 입력 바뀌면 a,b 업데이트
-  ["cs]()
+  ["cs1","cs2","cs3"].forEach(id => {
+    $(id).addEventListener("input", () => updateAB());
+  });
+}
+
+wireEvents();
+setActiveTab("air");
+computeAir();
+updateAB();
