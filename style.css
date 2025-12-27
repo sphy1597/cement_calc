@@ -1,60 +1,95 @@
-*{box-sizing:border-box}
+:root{
+  --bg:#f6f7fb;
+  --card:#fff;
+  --border:#e5e7eb;
+  --text:#0f172a;
+  --muted:#475569;
+  --focus:rgba(59,130,246,.25);
+  --chip:#0b1220;
+  --chipText:#eaf1ff;
+  --radius:16px;
+}
+
+*{ box-sizing:border-box; }
+
 body{
   margin:0;
-  background:#f6f7fb;
-  font-family:system-ui,"Noto Sans KR",sans-serif;
+  background:var(--bg);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
+  color:var(--text);
+  padding:
+    calc(16px + env(safe-area-inset-top))
+    calc(16px + env(safe-area-inset-right))
+    calc(16px + env(safe-area-inset-bottom))
+    calc(16px + env(safe-area-inset-left));
   display:flex;
   justify-content:center;
-  padding:16px;
 }
+
 .card{
   width:100%;
-  max-width:600px;
-  background:#fff;
-  border-radius:16px;
+  max-width: 760px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
   padding:16px;
   box-shadow:0 10px 30px rgba(0,0,0,.06);
 }
-h1{font-size:18px;margin-bottom:12px}
+
+h1{
+  margin:0 0 12px;
+  font-size:18px;
+  letter-spacing:-.2px;
+}
+
+/* ✅ 모바일 기본: 세로 흐름 */
+.layout{
+  display:block;
+}
 
 .grid{
   display:grid;
   gap:12px;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
 }
 
 .field label{
-  font-size:12px;
-  color:#555;
-  margin-bottom:6px;
   display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
 }
 
 .inputWrap{
   display:flex;
-  gap:6px;
+  gap:8px;
 }
 
 input{
   flex:1;
   padding:12px;
-  font-size:16px;
+  font-size:16px; /* iOS 자동 확대 방지 */
   border-radius:12px;
-  border:1px solid #ddd;
+  border:1px solid var(--border);
+  outline:none;
+  background:#fff;
 }
 
-button{
+input:focus{
+  border-color: rgba(59,130,246,.7);
+  box-shadow: 0 0 0 4px var(--focus);
+}
+
+.signBtn{
+  width:44px;
   border-radius:12px;
-  border:1px solid #ddd;
+  border:1px solid var(--border);
   background:#fff;
+  font-size:16px;
+  font-weight:800;
   cursor:pointer;
 }
-
-.inputWrap button{
-  width:44px;
-  font-size:16px;
-  font-weight:700;
-}
+.signBtn:active{ transform: translateY(1px); }
 
 .actions{
   margin-top:12px;
@@ -65,27 +100,65 @@ button{
 .actions button{
   flex:1;
   padding:12px;
-  font-weight:600;
+  border-radius:12px;
+  border:1px solid var(--border);
+  font-weight:700;
+  cursor:pointer;
 }
 
-.main{background:#111;color:#fff}
-.sub{background:#fff}
-
-.result{
-  margin-top:14px;
-  background:#0b1220;
-  color:#fff;
-  padding:14px;
-  border-radius:14px;
-}
-
-.value{
-  font-size:26px;
-  font-weight:800;
-}
+.main{ background:#111; color:#fff; }
+.sub{ background:#fff; color:#111; }
 
 .err{
   margin-top:8px;
   color:#b00020;
   font-size:12px;
+  min-height: 16px;
+}
+
+.result{
+  margin-top:14px;
+  background:var(--chip);
+  color:var(--chipText);
+  padding:14px;
+  border-radius:14px;
+}
+
+.resultTitle{
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.value{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:.2px;
+  word-break:break-all;
+}
+
+.hint{
+  margin-top:8px;
+  font-size:12px;
+  opacity:.85;
+  line-height:1.35;
+}
+
+/* ✅ PC: 좌측 입력 / 우측 결과 */
+@media (min-width: 980px){
+  .card{ max-width: 980px; padding:20px; }
+
+  .layout{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+    align-items:start;
+  }
+
+  .result{
+    margin-top:0;
+    position: sticky;
+    top: 16px;
+  }
+
+  .value{ font-size:34px; }
 }
