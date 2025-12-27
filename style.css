@@ -23,7 +23,7 @@ body{
 
 .card{
   width:100%;
-  max-width:520px;
+  max-width:560px;
   background:var(--card);
   border-radius:16px;
   padding:16px;
@@ -31,9 +31,33 @@ body{
 }
 
 h1{
-  margin:0 0 16px;
+  margin:0 0 12px;
   font-size:18px;
 }
+
+/* Tabs */
+.tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom: 14px;
+}
+.tabBtn{
+  flex:1;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+  font-weight:800;
+}
+.tabBtn.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+.tabPanel{ display:none; }
+.tabPanel.active{ display:block; }
 
 /* 입력은 무조건 세로 */
 .inputs{
@@ -42,7 +66,7 @@ h1{
   gap:14px;
 }
 
-/* ✅ 라벨을 입력칸 왼쪽에 크게 (모바일/PC 공통) */
+/* 라벨을 입력칸 왼쪽에 크게 (모바일/PC 공통) */
 .field{
   display:flex;
   align-items:center;
@@ -50,10 +74,10 @@ h1{
 }
 
 .field label{
-  width:32px;
+  width:36px;
   text-align:right;
   font-size:17px;
-  font-weight:800;
+  font-weight:900;
   color:#111;
   margin:0;
 }
@@ -85,7 +109,7 @@ input:focus{
   border:1px solid var(--border);
   background:#fff;
   font-size:16px;
-  font-weight:700;
+  font-weight:800;
   cursor:pointer;
 }
 
@@ -100,7 +124,7 @@ input:focus{
   padding:12px;
   border-radius:12px;
   border:1px solid var(--border);
-  font-weight:700;
+  font-weight:800;
   cursor:pointer;
 }
 
@@ -123,11 +147,11 @@ input:focus{
 
   display:flex;
   flex-direction:column;
-  gap:12px; /* ✅ 결과 내부 여백 */
+  gap:12px; /* 결과 내부 여백 */
 }
 
 .resultTitle{
-  font-weight:800;
+  font-weight:900;
 }
 
 .value{
