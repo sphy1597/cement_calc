@@ -2,71 +2,69 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>수식 계산기</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <main class="card">
-    <h1>수식 계산기</h1>
+<main class="card">
+  <h1>수식 계산기</h1>
 
-    <div class="layout">
-      <!-- 좌측: 입력/버튼/에러 -->
-      <section class="inputs">
-        <div class="grid">
-          <div class="field">
-            <label for="w">w</label>
-            <div class="inputWrap">
-              <input id="w" value="0" inputmode="decimal" autocomplete="off">
-              <button type="button" class="signBtn" data-target="w" aria-label="w 부호 전환">±</button>
-            </div>
-          </div>
+  <!-- 입력 영역 -->
+  <section class="inputs">
 
-          <div class="field">
-            <label for="C">C</label>
-            <div class="inputWrap">
-              <input id="C" value="1" inputmode="decimal" autocomplete="off">
-              <button type="button" class="signBtn" data-target="C" aria-label="C 부호 전환">±</button>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="S">S</label>
-            <div class="inputWrap">
-              <input id="S" value="1" inputmode="decimal" autocomplete="off">
-              <button type="button" class="signBtn" data-target="S" aria-label="S 부호 전환">±</button>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="P">P</label>
-            <div class="inputWrap">
-              <input id="P" value="0" inputmode="decimal" autocomplete="off">
-              <button type="button" class="signBtn" data-target="P" aria-label="P 부호 전환">±</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button type="button" class="main" id="calcBtn">계산</button>
-          <button type="button" class="sub" id="resetBtn">초기화</button>
-        </div>
-
-        <div id="err" class="err" role="alert" aria-live="polite"></div>
-      </section>
-
-      <!-- 우측: 결과 -->
-      <aside class="result" aria-live="polite">
-        <div class="resultTitle">결과</div>
-        <div id="out" class="value">—</div>
-        <div class="hint">
-          result = 100 × ( 1 − (w/400) × ( (337.5/C + 1350/S + 337.5×P×0.01) / (337.5 + 1350 + 337.5×P×0.01) ) )
-        </div>
-      </aside>
+    <div class="field">
+      <label for="w">w</label>
+      <div class="inputWrap">
+        <input id="w" value="0" inputmode="decimal">
+        <button type="button" class="signBtn" data-target="w">±</button>
+      </div>
     </div>
-  </main>
 
-  <script src="app.js"></script>
+    <div class="field">
+      <label for="C">C</label>
+      <div class="inputWrap">
+        <input id="C" value="1" inputmode="decimal">
+        <button type="button" class="signBtn" data-target="C">±</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="S">S</label>
+      <div class="inputWrap">
+        <input id="S" value="1" inputmode="decimal">
+        <button type="button" class="signBtn" data-target="S">±</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="P">P</label>
+      <div class="inputWrap">
+        <input id="P" value="0" inputmode="decimal">
+        <button type="button" class="signBtn" data-target="P">±</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="main" id="calcBtn">계산</button>
+      <button class="sub" id="resetBtn">초기화</button>
+    </div>
+
+    <div id="err" class="err"></div>
+  </section>
+
+  <!-- 결과 영역 (항상 아래) -->
+  <section class="result">
+    <div class="resultTitle">결과</div>
+    <div id="out" class="value">—</div>
+    <div class="hint">
+      result = 100 × ( 1 − (w/400) × ( (337.5/C + 1350/S + 337.5×P×0.01)
+      / (337.5 + 1350 + 337.5×P×0.01) ) )
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
 </body>
 </html>
