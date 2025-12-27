@@ -14,10 +14,11 @@
 body{
   margin:0;
   background:var(--bg);
-  font-family:system-ui,"Noto Sans KR",sans-serif;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
   display:flex;
   justify-content:center;
   padding:16px;
+  color:var(--text);
 }
 
 .card{
@@ -41,6 +42,7 @@ h1{
   gap:14px;
 }
 
+/* ✅ 라벨을 입력칸 왼쪽에 크게 (모바일/PC 공통) */
 .field{
   display:flex;
   align-items:center;
@@ -48,14 +50,13 @@ h1{
 }
 
 .field label{
-  width: 28px;              /* w, C, S, P 고정 폭 */
+  width:32px;
   text-align:right;
-  font-size:16px;           /* ✅ 글자 크기 키움 */
-  font-weight:700;
+  font-size:17px;
+  font-weight:800;
   color:#111;
   margin:0;
 }
-
 
 .inputWrap{
   flex:1;
@@ -63,14 +64,14 @@ h1{
   gap:8px;
 }
 
-
 input{
   flex:1;
   padding:12px;
-  font-size:16px;
+  font-size:16px; /* iOS 자동 확대 방지 */
   border-radius:12px;
   border:1px solid var(--border);
   outline:none;
+  background:#fff;
 }
 
 input:focus{
@@ -100,10 +101,11 @@ input:focus{
   border-radius:12px;
   border:1px solid var(--border);
   font-weight:700;
+  cursor:pointer;
 }
 
 .main{ background:#111; color:#fff; }
-.sub{ background:#fff; }
+.sub{ background:#fff; color:#111; }
 
 .err{
   font-size:12px;
@@ -121,7 +123,7 @@ input:focus{
 
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:12px; /* ✅ 결과 내부 여백 */
 }
 
 .resultTitle{
@@ -131,6 +133,9 @@ input:focus{
 .value{
   font-size:30px;
   font-weight:900;
+  margin:6px 0;
+  letter-spacing:.2px;
+  word-break:break-all;
 }
 
 .hint{
