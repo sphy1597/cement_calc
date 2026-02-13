@@ -490,7 +490,12 @@ async function downloadAsReportFromTemplate() {
     const b71Text = `관리의 편의성을 위해 ${target}을 최적 SO3 기준으로 관리`;
     setCell(ws, "B71", b71Text);
 
-    XLSX.writeFile(workbook, "SO3_report_filled.xlsx");
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const d = String(now.getDate()).padStart(2, "0");
+    const outName = `1종 시멘트 SO3 도출시험 결과_${y}${m}${d}.xlsx`;
+    XLSX.writeFile(workbook, outName);
     setSaveMsg("보고서를 다운로드했습니다.");
   } catch (err) {
     setSaveMsg("다운로드에 실패했습니다. SO3_report.xlsx 경로와 접속 방식(http/https)을 확인해 주세요.");
