@@ -180,6 +180,177 @@ input:focus{
 .judge.ok{ color:#2563eb; }       /* 적정: 파랑 */
 .judge.retest{ color:#dc2626; }   /* 재시험: 빨강 */
 
+/* 임시 저장 */
+.memory{
+  margin-top:16px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+}
+
+.memoryTitle{
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.memoryHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+
+.memoryHeader .memoryTitle{
+  margin-bottom:0;
+}
+
+.saveMsg{
+  font-size:12px;
+  color:#334155;
+  min-height:14px;
+  margin-bottom:8px;
+}
+
+.slotRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:8px 0;
+  border-top:1px dashed var(--border);
+}
+
+.slotRow:first-of-type{
+  border-top:0;
+}
+
+.slotInfo{
+  min-width:0;
+  position:relative;
+}
+
+.slotName{
+  font-weight:700;
+  font-size:14px;
+}
+
+.slotMeta{
+  color:var(--muted);
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:220px;
+}
+
+.slotTooltip{
+  position:absolute;
+  left:0;
+  top:calc(100% + 8px);
+  z-index:10;
+  min-width:260px;
+  max-width:320px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  background:#0f172a;
+  color:#f8fafc;
+  padding:10px;
+  font-size:12px;
+  line-height:1.45;
+  white-space:pre-line;
+  box-shadow:0 10px 24px rgba(0, 0, 0, .2);
+  display:none;
+}
+
+.slotInfo:hover .slotTooltip,
+.slotInfo:focus-within .slotTooltip{
+  display:block;
+}
+
+.slotActions{
+  display:flex;
+  gap:6px;
+  flex-shrink:0;
+}
+
+.slotBtn{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.slotBtn.danger{
+  color:#b91c1c;
+}
+
+/* 무수황산 보고서 */
+.reportPanel{
+  margin-top:14px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+  display:none;
+}
+
+.reportPanel.active{
+  display:block;
+}
+
+.reportTitle{
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.reportHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+
+.reportHeader .reportTitle{
+  margin-bottom:0;
+}
+
+.reportBtn{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.reportBody{
+  margin-bottom:12px;
+}
+
+.reportTable{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+.reportTable th,
+.reportTable td{
+  border:1px solid var(--border);
+  padding:6px 8px;
+  text-align:center;
+}
+
+.reportTable th{
+  background:#f8fafc;
+  font-weight:800;
+}
 
 /* PC: hide ± */
 @media (min-width: 900px){

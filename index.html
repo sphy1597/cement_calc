@@ -184,20 +184,6 @@
       </div>
 
       <div class="field">
-        <label for="aVal">시험결과2-시험결과1</label>
-        <div class="inputWrap">
-          <input id="aVal" value="0" readonly>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="bVal">시험결과3-시험결과2</label>
-        <div class="inputWrap">
-          <input id="bVal" value="0" readonly>
-        </div>
-      </div>
-
-      <div class="field">
         <label for="so3">석고SO₃함량</label>
         <div class="inputWrap">
           <input id="so3" value="0" inputmode="decimal" autocomplete="off" placeholder="황산칼슘 SO₃ 함량">
@@ -210,6 +196,20 @@
         <div class="inputWrap">
           <input id="dVal" value="0" inputmode="decimal" autocomplete="off" placeholder="시험 시멘트 무수 황산 함량">
           <button type="button" class="signBtn" data-target="dVal">±</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="aVal">시험결과2-시험결과1</label>
+        <div class="inputWrap">
+          <input id="aVal" value="0" readonly>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="bVal">시험결과3-시험결과2</label>
+        <div class="inputWrap">
+          <input id="bVal" value="0" readonly>
         </div>
       </div>
 
@@ -235,11 +235,72 @@
       </div>
     </section>
 
-    
+  <section class="memory" aria-label="시험 결과 저장">
+    <div class="memoryHeader">
+      <div class="memoryTitle">시험 결과 저장 (최대 3개)</div>
+      <button class="slotBtn" id="genAsReportBtn" type="button">보고서 생성</button>
+    </div>
+    <div id="saveMsg" class="saveMsg" aria-live="polite"></div>
+
+    <div class="slotRow">
+      <div class="slotInfo">
+        <div class="slotName">슬롯 1</div>
+        <div id="slot1Meta" class="slotMeta" tabindex="0">비어 있음</div>
+        <div id="slot1Tooltip" class="slotTooltip" role="tooltip"></div>
+      </div>
+      <div class="slotActions">
+        <button type="button" class="slotBtn" data-action="save" data-slot="0">저장</button>
+        <button type="button" class="slotBtn" data-action="load" data-slot="0">불러오기</button>
+        <button type="button" class="slotBtn danger" data-action="clear" data-slot="0">삭제</button>
+      </div>
+    </div>
+
+    <div class="slotRow">
+      <div class="slotInfo">
+        <div class="slotName">슬롯 2</div>
+        <div id="slot2Meta" class="slotMeta" tabindex="0">비어 있음</div>
+        <div id="slot2Tooltip" class="slotTooltip" role="tooltip"></div>
+      </div>
+      <div class="slotActions">
+        <button type="button" class="slotBtn" data-action="save" data-slot="1">저장</button>
+        <button type="button" class="slotBtn" data-action="load" data-slot="1">불러오기</button>
+        <button type="button" class="slotBtn danger" data-action="clear" data-slot="1">삭제</button>
+      </div>
+    </div>
+
+    <div class="slotRow">
+      <div class="slotInfo">
+        <div class="slotName">슬롯 3</div>
+        <div id="slot3Meta" class="slotMeta" tabindex="0">비어 있음</div>
+        <div id="slot3Tooltip" class="slotTooltip" role="tooltip"></div>
+      </div>
+      <div class="slotActions">
+        <button type="button" class="slotBtn" data-action="save" data-slot="2">저장</button>
+        <button type="button" class="slotBtn" data-action="load" data-slot="2">불러오기</button>
+        <button type="button" class="slotBtn danger" data-action="clear" data-slot="2">삭제</button>
+      </div>
+    </div>
+  </section>
+
+    <section id="asReportSection" class="reportPanel" aria-live="polite">
+      <div class="reportHeader">
+        <div class="reportTitle">무수황산 보고서</div>
+        <button type="button" id="downloadAsReportBtn" class="reportBtn">보고서 다운받기</button>
+      </div>
+      <div id="asReportBody" class="reportBody">보고서 생성 버튼을 누르세요.</div>
+
+      <div class="field">
+        <label for="asTargetSo3">관리의 편리성을 위한 최적 SO₃ 기준</label>
+        <div class="inputWrap">
+          <input id="asTargetSo3" value="" inputmode="decimal" autocomplete="off" placeholder="예: 2.80">
+        </div>
+      </div>
+    </section>
   </section>
 </main>
 
 <!-- app.js는 기존 파일 사용 -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="app.js" defer></script>
 </body>
 </html>
