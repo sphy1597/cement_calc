@@ -473,12 +473,17 @@ async function downloadAsReportFromTemplate() {
     setCellIfFilled(ws, "D54", s3.cs2);
     setCellIfFilled(ws, "D55", s3.cs3);
 
-    const r1Text = slots[0]?.outputs?.outAs ?? "";
-    const r2Text = slots[1]?.outputs?.outAs ?? "";
-    const r1 = parseNum(r1Text);
-    const r2 = parseNum(r2Text);
-    const avgText = Number.isFinite(r1) && Number.isFinite(r2) ? fmt((r1 + r2) / 2) : "계산 불가";
-    const b70Text = `1종 시멘트 최적 SO3는 ${r1Text || "-"} + ${r2Text || "-"} / 2 = ${avgText} 으로 결정`;
+    const resultNums = slots
+      .map((snap) => parseNum(snap?.outputs?.outAs ?? ""))
+      .filter(Number.isFinite);
+
+    const measuredText = resultNums.length ? resultNums.map((n) => fmt(n)).join(", ") : "-";
+    const b69Text = `1) 슬롯2, 3 비어있지 않은 N차 결과 최적 SO3는 ${measuredText}로 측정됨`;
+    setCell(ws, "B69", b69Text);
+
+    const expr = resultNums.length ? `(${resultNums.map((n) => fmt(n)).join(" + ")}) / ${resultNums.length}` : "-";
+    const avgText = resultNums.length ? fmt(resultNums.reduce((acc, cur) => acc + cur, 0) / resultNums.length) : "계산 불가";
+    const b70Text = `2) 따라서 1종 시멘트 최적 SO3는 ${expr} = ${avgText}으로 결정`;
     setCell(ws, "B70", b70Text);
 
     const target = $("asTargetSo3")?.value?.trim() || "-";
