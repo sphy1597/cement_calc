@@ -487,7 +487,7 @@ async function downloadAsReportFromTemplate() {
     setCell(ws, "B70", b70Text);
 
     const target = $("asTargetSo3")?.value?.trim() || "-";
-    const b71Text = `관리의 편의성을 위해 ${target}을 최적 SO3 기준으로 관리`;
+    const b71Text = `3) 관리의 편의성을 위해 ${target}을 최적 SO3 기준으로 관리`;
     setCell(ws, "B71", b71Text);
 
     const now = new Date();
