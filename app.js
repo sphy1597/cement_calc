@@ -495,7 +495,7 @@ async function downloadAsReportFromTemplate(sheetNameWanted) {
     const y = now.getFullYear();
     const m = String(now.getMonth() + 1).padStart(2, "0");
     const d = String(now.getDate()).padStart(2, "0");
-    const outName = `1종 시멘트 SO3 도출시험 결과_${y}${m}${d}.xlsx`;
+    const outName = `${cementType} SO3 도출시험 결과_${y}${m}${d}.xlsx`;
     XLSX.writeFile(workbook, outName);
     setSaveMsg(`보고서를 다운로드했습니다. (시트: ${sheetName})`);
   } catch (err) {
