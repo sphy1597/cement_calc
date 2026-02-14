@@ -97,6 +97,8 @@ function resetAir() {
    T = sqrt(t/t0)
 ------------------------ */
 function computeSsa() {
+  updateSampleMass();
+
   const S0 = parseNum($("S0")?.value);
   const rho0 = parseNum($("rho0")?.value);
   const rho = parseNum($("rho")?.value);
@@ -151,14 +153,32 @@ function computeSsa() {
   setText("outSsa", fmt(S));
 }
 
+function updateSampleMass() {
+  const rho = parseNum($("rho")?.value);
+  const bedVol = parseNum($("bedVol")?.value);
+  const e = parseNum($("e")?.value);
+  const mEl = $("mVal");
+  if (!mEl) return;
+
+  if (![rho, bedVol, e].every(Number.isFinite)) {
+    mEl.value = "";
+    return;
+  }
+
+  const m = rho * bedVol * (1 - e);
+  mEl.value = Number.isFinite(m) ? m.toFixed(4) : "";
+}
+
 function resetSsa() {
   if ($("S0")) $("S0").value = "1";
+  if ($("bedVol")) $("bedVol").value = "1.8551";
   if ($("rho0")) $("rho0").value = "1";
-  if ($("rho")) $("rho").value = "1";
+  if ($("rho")) $("rho").value = "3.15";
   if ($("e0")) $("e0").value = "0.5";
-  if ($("e")) $("e").value = "0.5";
+  if ($("e")) $("e").value = "0.50";
   if ($("t")) $("t").value = "1";
   if ($("t0")) $("t0").value = "1";
+  updateSampleMass();
   setText("outSsa", "—");
   setText("errSsa", "");
 }
@@ -268,7 +288,7 @@ const STORAGE_KEY = "cementCalcSnapshotsV1";
 const SLOT_COUNT = 3;
 const INPUT_IDS = [
   "w", "C", "S_air", "P",
-  "S0", "rho0", "rho", "e0", "e", "t", "t0",
+  "S0", "bedVol", "rho0", "rho", "e0", "e", "t", "t0",
   "cs1", "cs2", "cs3", "so3", "dVal"
 ];
 
@@ -638,6 +658,9 @@ function wireEvents() {
   // 비표면적
   $("calcSsaBtn")?.addEventListener("click", computeSsa);
   $("resetSsaBtn")?.addEventListener("click", resetSsa);
+  ["rho", "bedVol", "e"].forEach((id) => {
+    $(id)?.addEventListener("input", updateSampleMass);
+  });
 
   // 무수 황산
   $("calcAsBtn")?.addEventListener("click", computeAs);
