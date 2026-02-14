@@ -330,6 +330,11 @@ input:focus{
   cursor:pointer;
 }
 
+.reportActions{
+  display:flex;
+  gap:6px;
+}
+
 .reportBody{
   margin-bottom:12px;
 }

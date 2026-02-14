@@ -407,9 +407,9 @@ function generateAsReport() {
   section.scrollIntoView({ behavior: "smooth", block: "end" });
 }
 
-function pickFirstSheet(workbook) {
-  const name = workbook?.SheetNames?.[0];
-  return name ? workbook.Sheets[name] : null;
+function pickSheetByName(workbook, wantedName) {
+  const name = (workbook?.SheetNames || []).find((n) => String(n).trim() === wantedName);
+  return { name: name || "", ws: name ? workbook.Sheets[name] : null };
 }
 
 function toNumOrText(v) {
@@ -436,7 +436,7 @@ function setCellIfFilled(ws, addr, value) {
   setCell(ws, addr, toNumOrText(value));
 }
 
-async function downloadAsReportFromTemplate() {
+async function downloadAsReportFromTemplate(sheetNameWanted) {
   if (typeof XLSX === "undefined") {
     setSaveMsg("엑셀 라이브러리를 불러오지 못했습니다.");
     return;
@@ -450,9 +450,9 @@ async function downloadAsReportFromTemplate() {
   try {
     const buf = await fetchTemplateArrayBuffer();
     const workbook = XLSX.read(buf, { type: "array" });
-    const ws = pickFirstSheet(workbook);
+    const { name: sheetName, ws } = pickSheetByName(workbook, sheetNameWanted);
     if (!ws) {
-      setSaveMsg("템플릿 시트 정보를 읽지 못했습니다.");
+      setSaveMsg(`"${sheetNameWanted}" 시트를 찾지 못했습니다.`);
       return;
     }
 
@@ -483,7 +483,8 @@ async function downloadAsReportFromTemplate() {
 
     const expr = resultNums.length ? `(${resultNums.map((n) => fmt(n)).join(" + ")}) / ${resultNums.length}` : "-";
     const avgText = resultNums.length ? fmt(resultNums.reduce((acc, cur) => acc + cur, 0) / resultNums.length) : "계산 불가";
-    const b70Text = `2) 따라서 1종 시멘트 최적 SO3는 ${expr} = ${avgText}으로 결정`;
+    const cementType = sheetNameWanted === "1종" ? "1종 시멘트" : "3종 시멘트";
+    const b70Text = `2) 따라서 ${cementType} 최적 SO3는 ${expr} = ${avgText}으로 결정`;
     setCell(ws, "B70", b70Text);
 
     const target = $("asTargetSo3")?.value?.trim() || "-";
@@ -496,7 +497,7 @@ async function downloadAsReportFromTemplate() {
     const d = String(now.getDate()).padStart(2, "0");
     const outName = `1종 시멘트 SO3 도출시험 결과_${y}${m}${d}.xlsx`;
     XLSX.writeFile(workbook, outName);
-    setSaveMsg("보고서를 다운로드했습니다.");
+    setSaveMsg(`보고서를 다운로드했습니다. (시트: ${sheetName})`);
   } catch (err) {
     setSaveMsg("다운로드에 실패했습니다. SO3_report.xlsx 경로와 접속 방식(http/https)을 확인해 주세요.");
     console.error(err);
@@ -642,8 +643,11 @@ function wireEvents() {
   $("calcAsBtn")?.addEventListener("click", computeAs);
   $("resetAsBtn")?.addEventListener("click", resetAs);
   $("genAsReportBtn")?.addEventListener("click", generateAsReport);
-  $("downloadAsReportBtn")?.addEventListener("click", () => {
-    downloadAsReportFromTemplate();
+  $("downloadAsReportSheet1Btn")?.addEventListener("click", () => {
+    downloadAsReportFromTemplate("1종");
+  });
+  $("downloadAsReportSheet2Btn")?.addEventListener("click", () => {
+    downloadAsReportFromTemplate("3종");
   });
 
   // 무수 황산: 시험결과 입력 바뀌면 a,b 업데이트(원하면 즉시 재계산도 가능)
